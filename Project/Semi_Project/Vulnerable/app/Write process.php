@@ -17,10 +17,15 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
     $original_name = $_FILES['file']['name'];
     $tmp = $_FILES['file']['tmp_name'];
 
-    // [취약점] 디코딩 전에 확장자 검사 → HTML Entity 인코딩으로 우회 가능
+    // [취약점 1] 디코딩 전에 확장자 검사 수행
+    // → 확장자를 HTML Entity로 인코딩한 &#x70;&#x68;&#x70; 형태로 전송하면
+    //   이 시점에서는 .php 로 인식되지 않아 확장자 검증 필터 우회 가능
     $base_raw = basename($original_name);
     $ext_raw = strtolower(pathinfo($base_raw, PATHINFO_EXTENSION));
 
+    // [취약점 2] 블랙리스트 방식 사용
+    // → 막아야 할 확장자를 하나하나 직접 등록해야 하는 방식
+    // → 목록에 없는 새로운 확장자나 우회 방법이 나오면 그대로 통과됨
     if (
         $ext_raw === "php"  ||
         $ext_raw === "php3" ||
@@ -45,7 +50,10 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
         exit;
     }
 
-    // [취약점 발생 지점] 검사 이후에 디코딩 → &#x70;&#x68;&#x70; 형태로 필터 우회 가능
+    // [취약점 발생 지점] 확장자 검사 이후에 디코딩 수행
+    // → &#x70;&#x68;&#x70; 가 이 시점에서 실제 .php 로 복원됨
+    // → 블랙리스트 검사는 이미 통과했기 때문에 .php 파일이 그대로 업로드됨
+    // → 결과적으로 WebShell 업로드 가능
     $decoded_name = html_entity_decode($original_name, ENT_QUOTES, 'UTF-8');
     $base = basename($decoded_name);
     $ext = strtolower(pathinfo($base, PATHINFO_EXTENSION));
