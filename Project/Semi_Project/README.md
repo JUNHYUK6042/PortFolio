@@ -111,10 +111,18 @@ WebShell에서 상위 디렉토리로 이동해 `dbconn.php`를 열어봤더니 
 
 ### 파일 업로드 취약점
 
-- 검증 순서가 잘못되어 디코딩 전에 확장자를 검사하기 때문에, Entity 인코딩으로 그냥 우회가 됐습니다.
+서버가 파일 확장자를 검사할 때 디코딩을 먼저 하지 않고 있었습니다.  
+그래서 `.php` 확장자를 HTML Entity로 인코딩한   
+`&#x70;&#x68;&#x70;` 형태로 변경하여 업로드했을 때 확장자 검증 필터를 우회하였습니다.  
+또한 블랙리스트 방식은 막아야 할 확장자를 전부 직접 등록해야 하기 때문에,  
+새로운 우회 방법이 나올 때마다 계속 추가해줘야 한다는 근본적인 한계가 있었습니다.
+
+그래서 확장자 검증을 다음과 같이 바꿨습니다.
+- 디코딩을 검증보다 먼저 수행하도록 처리 순서를 바꾸고,  
+- 블랙리스트 대신 허용할 확장자만 정해두는 화이트리스트 방식으로 전환했습니다.  
 
 ```php
-// 취약한 코드 (vulnerable/app/write_process.php)
+// 취약한 코드 (Vulnerable/app/write_process.php)
 // 디코딩 전에 검사 → &#x70;&#x68;&#x70; 는 필터 통과
 $ext_raw = pathinfo($original_name, PATHINFO_EXTENSION);
 if ($ext_raw === "php") { exit; }
@@ -122,22 +130,27 @@ $decoded_name = html_entity_decode($original_name, ENT_QUOTES, 'UTF-8');
 ```
 
 ```php
-// 보안 적용 후 (secure/app/upload_process_secure.php)
-// 디코딩 먼저 → 검증 나중 + 화이트리스트로 전환
+// 대응 방안 적용 후 (Secure/app/upload_process_secure.php)
+// 디코딩 먼저 수행 → 실제 확장자 기준으로 검증
 $decoded_name = html_entity_decode($original_name, ENT_QUOTES, 'UTF-8');
 $ext = strtolower(pathinfo($decoded_name, PATHINFO_EXTENSION));
 
+// 블랙리스트 → 화이트리스트 전환
 $whitelist = ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'txt'];
 if (!in_array($ext, $whitelist)) { exit("허용되지 않는 확장자"); }
 ```
-
-- 블랙리스트는 막을 수 없는 게 생기기 때문에, 허용할 확장자만 정해두는 화이트리스트 방식으로 바꿨습니다.
 
 ---
 
 ### SUID 권한 상승
 
-`find`에 SUID가 걸려 있을 이유가 없는데 걸려 있었습니다. 불필요한 SUID는 제거하는 게 맞습니다.
+SUID는 일반 사용자가 파일 소유자의 권한으로 프로그램을 실행할 수 있게 해주는 설정입니다.
+`find` 명령어처럼 `-exec` 옵션으로 외부 명령을 실행할 수 있는 프로그램에 SUID가 걸려 있으면,  
+일반 사용자 권한에서도 root 수준의 명령을 실행할 수 있게 됩니다.  
+운영 과정에서 잘못 설정됐거나, 설정한 사실 자체를 잊어버리는 경우가 실제로 많습니다.
+
+`find`에는 SUID가 필요하지 않기 때문에 제거하고,  
+어떤 파일에 SUID가 걸려 있는지 주기적으로 점검하는 것이 중요합니다.
 
 ```bash
 # SUID 제거
@@ -151,15 +164,20 @@ find / -perm -4000 -type f 2>/dev/null
 
 ### Database 정보 노출
 
-DB 비밀번호를 소스코드에 그대로 적어두면, WebShell 하나만 올라가도 바로 털립니다.
+DB 접속 정보를 소스코드에 평문으로 적어두면,  
+WebShell 하나만 올라가도 파일을 그대로 열어볼 수 있기 때문에 DB 계정 정보가 즉시 노출됩니다.  
+소스코드는 여러 사람이 보거나 GitHub에 올라갈 수도 있어서, 민감한 정보를 직접 적어두는 건 위험합니다.
+
+DB 접속 정보는 소스코드 밖으로 꺼내 환경변수로 관리하는 방식으로 바꿨습니다.  
+이렇게 하면 소스코드가 노출되더라도 실제 접속 정보는 드러나지 않습니다.
 
 ```php
-// 취약한 코드 (vulnerable/app/dbconn.php)
+// 취약한 코드 (Vulnerable/app/dbconn.php)
 $password = "1234";  // 평문 하드코딩
 ```
 
 ```php
-// 보안 적용 후
+// 대응 방안 적용 후
 $password = getenv('DB_PASS');  // 환경변수로 분리
 ```
 
@@ -172,7 +190,7 @@ Semi_Project/
 │
 ├── img/                    # 공격 과정 스크린샷
 │
-├── vulnerable/             # 취약점이 포함된 원본 코드
+├── Vulnerable/             # 취약점이 포함된 원본 코드
 │   ├── app/
 │   │   ├── dbconn.php
 │   │   ├── login_process.php
@@ -185,7 +203,7 @@ Semi_Project/
 │       ├── register.php
 │       └── write.php
 │
-└── secure/                 # 보안 대응 적용 코드
+└── Secure/                 # 보안 대응 적용 코드
     └── app/
         ├── login_process_secure.php
         └── upload_process_secure.php
