@@ -1,0 +1,191 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-y: auto;   /* ✅ 여기만 수정 (hidden → auto) */
+}
+
+.form-box {
+    width: 520px;
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    color: white;
+}
+
+.form-box h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    opacity: 0.8;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 10px #00f2fe;
+    background: rgba(255,255,255,0.25);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px #4facfe;
+}
+
+.hero-box {
+    text-align: center;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    padding: 60px 80px;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    color: white;
+}
+
+.hero-box h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.hero-box p {
+    opacity: 0.8;
+    margin-bottom: 40px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.main-btn, .sub-btn {
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.main-btn {
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
+    color: white;
+}
+
+.main-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px #4facfe;
+}
+
+.sub-btn {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.sub-btn:hover {
+    background: rgba(255,255,255,0.4);
+}
+
+.board-container {
+    width: 900px;
+    margin: 80px auto;
+    padding: 40px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    color: white;
+}
+
+.board-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.board-actions {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.board-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.board-table th,
+.board-table td {
+    padding: 12px;
+    text-align: center;
+}
+
+.board-table th {
+    background: rgba(255,255,255,0.15);
+}
+
+.board-table tr {
+    transition: 0.3s;
+}
+
+.board-table tr:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.file-link {
+    color: #00f2fe;
+    text-decoration: none;
+}
+
+.file-link:hover {
+    text-decoration: underline;
+}

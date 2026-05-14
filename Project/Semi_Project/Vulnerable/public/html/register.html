@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="form-box">
+    <h2>회원가입</h2>
+
+    <form action="/app/register_process.php" method="post">
+
+        <div class="form-group">
+            <label>이름</label>
+            <input type="text" name="name" placeholder="이름을 입력하세요." required>
+        </div>
+
+        <div class="form-group">
+            <label>이메일</label>
+            <input type="email" name="email" placeholder="이메일을 입력하세요." required>
+        </div>
+
+        <div class="form-group">
+            <label>아이디</label>
+            <input type="text" name="id" placeholder="아이디를 입력하세요." required>
+        </div>
+
+        <div class="form-group">
+            <label>비밀번호</label>
+            <input type="password" name="pw" placeholder="비밀번호를 입력하세요." required>
+        </div>
+
+        <div class="form-group">
+            <label>비밀번호 확인</label>
+            <input type="password" name="pw_confirm" placeholder="비밀번호를 다시 입력하세요." required>
+        </div>
+
+        <div class="form-group">
+            <label>전화번호</label>
+            <input type="text" name="phone" placeholder="(-)기호를 사용해 전화번호를 입력하세요.">
+        </div>
+
+        <div class="form-group">
+            <label>생년월일</label>
+            <input type="date" name="birth">
+        </div>
+
+        <div class="form-group">
+            <label>주소</label>
+            <input type="text" name="address" placeholder="주소를 입력하세요.">
+        </div>
+
+        <button type="submit">회원가입</button>
+    </form>
+</div>
+
+</body>
+</html>

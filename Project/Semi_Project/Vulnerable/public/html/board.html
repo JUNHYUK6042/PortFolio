@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Board</h2>
+    <a class="btn" href="write.php">Write</a>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>File</th>
+            <th>Writer</th>
+        </tr>
+        <?php while($row = mysqli_fetch_assoc($result)): ?>
+        <tr>
+            <td><?= $row['title'] ?></td>
+            <td><?= $row['filename'] ?></td>
+            <td><?= $row['writer'] ?></td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</div>
+</body>
+</html>
