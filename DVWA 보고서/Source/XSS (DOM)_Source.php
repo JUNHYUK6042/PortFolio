@@ -1,5 +1,13 @@
-<?php
-
-# No protections, anything goes
-
-?>
+<select name="default">
+    <script>
+        if (document.location.href.indexOf("default=") >= 0) {
+            var lang = document.location.href.substring(document.location.href.indexOf("default=") + 8);
+            document.write("<option value='" + lang + "'>" + decodeURI(lang) + "</option>");
+            document.write("<option value='' disabled='disabled'>----</option>");
+        }
+        document.write("<option value='English'>English</option>");
+        document.write("<option value='French'>French</option>");
+        document.write("<option value='Spanish'>Spanish</option>");
+        document.write("<option value='German'>German</option>");
+    </script>
+</select>
