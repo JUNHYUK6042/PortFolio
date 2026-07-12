@@ -80,7 +80,7 @@
 
 DVWA 기반 웹 취약점 모듈별 실습 보고서를 KISA 형식으로 정리하고 있습니다.
 
-➡️ [**DVWA 보고서 바로가기**](https://github.com/JUNHYUK6042/PortFolio/blob/main/DVWA%20%EB%B3%B4%EA%B3%A0%EC%84%9C/README.md)
+➡️ [**DVWA 보고서 바로가기**](https://github.com/JUNHYUK6042/PortFolio/blob/main/DVWA%20%EB%B3%B4%EA%B3%A0%EC%84%9C/README.md)  
 ➡️ [**DVWA 실습 저장소 바로가기**](https://github.com/JUNHYUK6042/DVWA)
 
 | 카테고리 | 주요 모듈 |
