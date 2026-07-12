@@ -2000,7 +2000,7 @@ allow_url_fopen = Off     ; 외부 URL을 통한 파일 읽기 차단
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/Blind%20SQL%20Injection_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 ### 취약점 개요
 
@@ -2082,8 +2082,7 @@ $query = "SELECT first_name, last_name FROM users WHERE user_id = '$id';";    //
   `id` 파라미터에 SQL 구문을 삽입하면 원래 쿼리의 조건절이 임의로 변경되는 구조입니다.
 - 조회 결과가 화면에 직접 노출되지 않더라도, 조건에 따라 응답 메시지나 응답 시간에 차이가 나도록 쿼리를 구성하면  
   참/거짓 또는 지연 여부만으로 데이터를 추론할 수 있습니다 — 이것이 Blind SQL Injection이 성립하는 일반적인 원리입니다.
-- 이 구조에서는 sqlmap과 같은 자동화 도구를 사용해 Database·Table·Column 구조 확인부터  
-  계정 정보(Password Hash 포함) 추출까지 자동화하는 것이 이론적으로 가능합니다.
+- 이 구조에서는 sqlmap과 같은 자동화 도구를 사용해 Database·Table·Column 구조 확인부터 계정 정보(Password Hash 포함) 추출까지 자동화하는 것이 가능합니다.
 
 **판단 : 취약** — 실제 환경이었다면 관리자 계정 탈취, 개인정보 유출, 데이터 변조 등으로 이어질 수 있습니다.
 
@@ -2227,7 +2226,7 @@ if (!$result) {
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/Command%20Injection_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 ### 취약점 개요
 
@@ -2399,7 +2398,7 @@ exec("ping -c 1 " . $safe_ip, $output);
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/CSRF_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 ### 취약점 개요
 
@@ -2583,7 +2582,7 @@ exec("ping -c 1 " . $safe_ip, $output);
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/XSS%20(Stored)_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 ### 취약점 개요
 
@@ -2740,7 +2739,7 @@ setcookie("PHPSESSID", session_id(), [
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/XSS%20(DOM)_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 ### 취약점 개요
 
@@ -2918,7 +2917,7 @@ document.querySelector("select").appendChild(option);
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/Brute%20Force_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 #### 취약점 개요
 
@@ -3094,7 +3093,7 @@ document.querySelector("select").appendChild(option);
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/Insecure%20Captcha_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 ### 취약점 개요
 
@@ -3299,7 +3298,7 @@ if( !isset( $_SESSION['captcha_passed'] ) || $_SESSION['captcha_passed'] !== tru
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/Weak%20Session%20IDs_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 #### 취약점 개요
 
@@ -3447,7 +3446,7 @@ session_start();
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/CSP%20Bypass_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 ### 취약점 개요
 
@@ -3598,7 +3597,7 @@ Content-Security-Policy: script-src 'nonce-랜덤값';
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/JavaScript%20Attacks_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 ### 취약점 개요
 
@@ -3768,7 +3767,7 @@ generate_token();
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/Open%20HTTP%20Redirect_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 ### 취약점 개요
 
@@ -3916,7 +3915,7 @@ if (in_array($_GET['redirect'], $allowed)) {
 | 취약 소스코드 | [취약 소스코드 바로가기](/DVWA%20보고서/Source/Cryptography_Source.php) |
 
 <details>
-<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 단계별 수행결과 · 대응방안)</summary>
+<summary>🔽 상세 점검 과정 펼쳐보기 (판단기준 · 취약점 분석 · 대응방안)</summary>
 
 ### 취약점 개요
 
